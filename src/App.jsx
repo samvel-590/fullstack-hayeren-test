@@ -35,7 +35,7 @@ const questions = [
     topic: 'npm',
     question: 'Ի՞նչ տեղեկություն է պահվում package.json-ում։',
     options: [
-      'Միայն տեղադրված փաթեթների կոդը',
+      'Միայն տեղադրված մոդուլների կոդը',
       'Նախագծի տվյալները, scripts-ը և dependencies-ը',
       'Միայն սերվերի կարգավորումները',
       'Նախագծի բոլոր ֆայլերի ամբողջական պարունակությունը'
@@ -57,15 +57,15 @@ const questions = [
   },
   {
     topic: 'npm',
-    question: 'Ո՞ր հրամանն է տեղադրում package.json-ում նշված փաթեթները։',
+    question: 'Ո՞ր հրամանն է տեղադրում package.json-ում նշված մոդուլները։',
     options: [
+      'npm update',
       'npm install',
-      'npm run install',
-      'node install',
-      'npm start'
+      'npm uninstall',
+      'npm init'
     ],
-    answer: 0,
-    explanation: 'npm install-ը տեղադրում է նախագծի կախվածությունները՝ սովորաբար node_modules պանակում։'
+    answer: 1,
+    explanation: 'npm install հրամանը տեղադրում է package.json-ում նշված մոդուլները և դրանց անհրաժեշտ կախվածությունները։'
   },
   {
     topic: 'Express',
