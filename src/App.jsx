@@ -56,16 +56,15 @@ const questions = [
     explanation: 'Օգտագործում ենք npm run dev հրամանը։'
   },
   {
-    topic: 'npm',
-    question: 'Ո՞ր հրամանն է տեղադրում package.json-ում նշված մոդուլները։',
+    question: "Ո՞ր հրամանն է տեղադրում package.json-ում նշված մոդուլները։",
     options: [
-      'npm update',
-      'npm install',
-      'npm uninstall',
-      'npm init'
+      "npm update",
+      "npm install",
+      "npm uninstall",
+      "npm init"
     ],
     answer: 1,
-    explanation: 'npm install հրամանը տեղադրում է package.json-ում նշված մոդուլները և դրանց անհրաժեշտ կախվածությունները։'
+    explanation: "npm install հրամանը տեղադրում է package.json-ում նշված մոդուլները։"
   },
   {
     topic: 'Express',
