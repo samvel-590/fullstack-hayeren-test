@@ -517,8 +517,6 @@ export default function App() {
 
             <h1>
               Ստուգի՛ր գիտելիքներդ։
-              <br />
-              <span>Աճի՛ր ամեն օր։</span>
             </h1>
 
             <p className="hero-description">
