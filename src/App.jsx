@@ -1,3 +1,4 @@
+import { useState } from 'react';
 
 const questions = [
   {
@@ -29,7 +30,7 @@ const questions = [
       'Սինխրոն ֆունկցիաները ավտոմատ async դարձնելու համար'
     ],
     answer: 1,
-    explanation: 'async/await-ը հեշտացնում է Promise-ների հետ աշխատանքը և կոդը դարձնում ավելի ընթեռնելի։'
+    explanation: 'async/await-ը հեշտացնում է Promise-ների հետ աշխատանքը։'
   },
   {
     topic: 'npm',
@@ -41,7 +42,7 @@ const questions = [
       'Նախագծի բոլոր ֆայլերի ամբողջական պարունակությունը'
     ],
     answer: 1,
-    explanation: 'package.json-ը պահում է նախագծի նկարագրությունը, հրամանները և dependencies-ը։'
+    explanation: 'package.json-ը պահում է նախագծի տվյալները, հրամանները և dependencies-ը։'
   },
   {
     topic: 'npm',
@@ -56,15 +57,16 @@ const questions = [
     explanation: 'Օգտագործում ենք npm run dev հրամանը։'
   },
   {
-    question: "Ո՞ր հրամանն է տեղադրում package.json-ում նշված մոդուլները։",
+    topic: 'npm',
+    question: 'Ո՞ր հրամանն է տեղադրում package.json-ում նշված մոդուլները։',
     options: [
-      "npm update",
-      "npm install",
-      "npm uninstall",
-      "npm init"
+      'npm update',
+      'npm install',
+      'npm uninstall',
+      'npm init'
     ],
     answer: 1,
-    explanation: "npm install հրամանը տեղադրում է package.json-ում նշված մոդուլները։"
+    explanation: 'npm install հրամանը տեղադրում է package.json-ում նշված մոդուլները։'
   },
   {
     topic: 'Express',
@@ -131,7 +133,7 @@ const questions = [
       'URL-ի query պարամետրերը'
     ],
     answer: 1,
-    explanation: 'req.body-ում կարող են լինել հաճախորդի ուղարկած տվյալները, եթե համապատասխան middleware-ը մշակել է դրանք։'
+    explanation: 'req.body-ում կարող են լինել հաճախորդի ուղարկած տվյալները։'
   },
   {
     topic: 'Express',
@@ -223,131 +225,288 @@ const questions = [
     options: [
       'Ավարտում է պատասխանը՝ առանց հաջորդ փուլ անցնելու',
       'Փոխանցում է կառավարումը հաջորդ middleware-ին կամ մշակիչին',
-      'Կրկին ուղարկում է նույն հարցումը հաճախորդից',
-      'Ավտոմատ ուղղում է բոլոր սխալները'
+      'Կրկին ուղարկում է հարցումը հաճախորդին',
+      'Ջնջում է req.body-ն'
     ],
     answer: 1,
-    explanation: 'next()-ը փոխանցում է կառավարումը հաջորդ middleware-ին կամ համապատասխան մշակիչին։'
+    explanation: 'next()-ը փոխանցում է կառավարումը հաջորդ middleware-ին կամ մշակիչին։'
   },
   {
-    topic: 'Middleware',
-    question: 'Ինչո՞ւ է middleware-ների հերթականությունը կարևոր։',
+    topic: 'Express',
+    question: 'Ի՞նչ է route-ը Express-ում։',
     options: [
-      'Որովհետև բոլոր middleware-ները միշտ աշխատում են զուգահեռ',
-      'Որովհետև Express-ը դրանք գործարկում է գրանցման հերթականությամբ',
-      'Որովհետև վերջին middleware-ը միշտ առաջինն է աշխատում',
-      'Որովհետև հերթականությունը որոշում է միայն HTTP մեթոդը'
+      'Միայն URL-ի հասցեն',
+      'HTTP մեթոդը, ուղին և հարցումը մշակող ֆունկցիան',
+      'Միայն middleware-ը',
+      'Տվյալների բազայի աղյուսակը'
     ],
     answer: 1,
-    explanation: 'Express-ը middleware-ները գործարկում է գրանցման հերթականությամբ։'
+    explanation: 'Route-ը սահմանում է՝ ինչ անել կոնկրետ HTTP մեթոդի և ուղու դեպքում։'
   },
   {
-    topic: 'API',
-    question: 'Ի՞նչ է API endpoint-ը։',
+    topic: 'JavaScript',
+    question: 'Ի՞նչ է անում Array.filter()-ը։',
     options: [
-      'Սերվերի պորտի համարը',
-      'API-ի կոնկրետ ուղին, որով հասանելի է գործողությունը կամ տվյալը',
-      'Հաճախորդի ուղարկած JSON օբյեկտը',
-      'Ֆունկցիա, որը պարտադիր տվյալներ է պահում զանգվածում'
+      'Փոփոխում է բոլոր տարրերը',
+      'Վերադարձնում է պայմանին համապատասխանող տարրերի նոր զանգված',
+      'Միացնում է բոլոր տարրերը մեկ տողի մեջ',
+      'Ջնջում է սկզբնական զանգվածը'
     ],
     answer: 1,
-    explanation: 'Endpoint-ը API-ի կոնկրետ ուղին է, օրինակ՝ GET /books։'
+    explanation: 'filter()-ը վերադարձնում է նոր զանգված՝ միայն պայմանին համապատասխանող տարրերով։'
   },
   {
-    topic: 'API',
-    question: 'Ի՞նչ է անում Array-ի find() մեթոդը։',
+    topic: 'JavaScript',
+    question: 'Ի՞նչ է անում toLowerCase()-ը։',
     options: [
-      'Վերադարձնում է պայմանին համապատասխանող բոլոր տարրերի նոր զանգվածը',
-      'Վերադարձնում է առաջին համապատասխան տարրը կամ undefined',
-      'Վերադարձնում է զանգվածի վերջին տարրը',
-      'Փոխում է զանգվածի բոլոր տարրերը'
+      'Տեքստը դարձնում է մեծատառ',
+      'Տեքստը դարձնում է փոքրատառ',
+      'Հեռացնում է տեքստի բոլոր բացատները',
+      'Տեքստը դարձնում է թիվ'
     ],
     answer: 1,
-    explanation: 'find()-ը վերադարձնում է առաջին տարրը, որը բավարարում է տրված պայմանին, կամ undefined։'
+    explanation: 'toLowerCase()-ը տեքստի տառերը դարձնում է փոքրատառ։'
   },
   {
-    topic: 'API',
-    question: 'Ի՞նչ է անում filter()-ը։',
+    topic: 'JavaScript',
+    question: 'Ի՞նչ է անում includes()-ը։',
     options: [
-      'Վերադարձնում է պայմանին համապատասխանող բոլոր տարրերի նոր զանգվածը',
-      'Վերադարձնում է միայն առաջին համապատասխան տարրը',
-      'Փոփոխում է սկզբնական զանգվածի բոլոր տարրերը',
-      'Ստուգում է՝ արդյոք զանգվածում որևէ տարր կա'
+      'Ստուգում է՝ արդյոք արժեքը պարունակվում է տողի կամ զանգվածի մեջ',
+      'Ջնջում է արժեքը',
+      'Փոխում է արժեքի տեսակը',
+      'Ավելացնում է նոր հատկություն օբյեկտին'
     ],
     answer: 0,
-    explanation: 'filter()-ը ստեղծում է նոր զանգված՝ ներառելով այն տարրերը, որոնք անցնում են ստուգումը։'
+    explanation: 'includes()-ը վերադարձնում է true կամ false՝ կախված նրանից, թե արժեքը կա, թե ոչ։'
+  },
+  {
+    topic: 'JavaScript',
+    question: 'Ի՞նչ է վերադարձնում find()-ը։',
+    options: [
+      'Միշտ նոր զանգված',
+      'Առաջին տարրը, որը համապատասխանում է պայմանին',
+      'Զանգվածի երկարությունը',
+      'Միայն true կամ false'
+    ],
+    answer: 1,
+    explanation: 'find()-ը վերադարձնում է առաջին համապատասխանող տարրը կամ undefined։'
+  },
+  {
+    topic: 'JavaScript',
+    question: 'Ի՞նչ է անում Number("12")-ը։',
+    options: [
+      'Վերադարձնում է "12" տողը',
+      'Վերադարձնում է 12 թիվը',
+      'Վերադարձնում է null',
+      'Ստեղծում է զանգված'
+    ],
+    answer: 1,
+    explanation: 'Number()-ը փորձում է արժեքը փոխակերպել թվի։'
   },
   {
     topic: 'React',
     question: 'Ինչի՞ համար է օգտագործվում useState-ը։',
     options: [
-      'Կոմպոնենտի փոփոխվող վիճակը պահելու և թարմացնելու համար',
-      'Կոմպոնենտի ֆայլը սերվերին ուղարկելու համար',
-      'Միայն սկզբնական արժեքը մեկ անգամ կարդալու համար',
-      'React Router-ի երթուղիները ստեղծելու համար'
+      'Կոմպոնենտի վիճակը պահելու և թարմացնելու համար',
+      'Միայն HTML տարրեր ստեղծելու համար',
+      'Սերվեր գործարկելու համար',
+      'CSS ֆայլեր ներմուծելու համար'
     ],
     answer: 0,
-    explanation: 'useState-ը React-ում պահում է state, իսկ setter ֆունկցիան թարմացնում է այն։'
+    explanation: 'useState-ը թույլ է տալիս React կոմպոնենտում պահել վիճակ և թարմացնել այն։'
   },
   {
     topic: 'React',
-    question: 'Ի՞նչ է անում React-ի map()-ը հաճախ ցուցակների դեպքում։',
+    question: 'Ի՞նչ է անում onClick-ը։',
     options: [
-      'Զանգվածի տարրերը վերածում է JSX տարրերի ցուցակի',
-      'Ջնջում է այն տարրերը, որոնք չեն համապատասխանում պայմանին',
-      'Գտնում է միայն առաջին համապատասխան տարրը',
-      'Փոփոխում է կոմպոնենտի state-ը առանց setter-ի'
+      'Գործարկում է ֆունկցիա, երբ տարրի վրա սեղմում են',
+      'Փոխում է էջի URL-ը պարտադիր կերպով',
+      'Ստեղծում է նոր կոմպոնենտ',
+      'Միացնում է սերվերը'
     ],
     answer: 0,
-    explanation: 'map()-ով հաճախ զանգվածի տարրերը վերածում ենք JSX տարրերի ցուցակի։'
+    explanation: 'onClick-ը իրադարձության մշակիչ է, որը գործարկվում է սեղմելիս։'
   },
   {
-    topic: 'Error handling',
-    question: 'Ինչի՞ համար է օգտագործվում try/catch-ը։',
+    topic: 'React',
+    question: 'Ինչի՞ համար է օգտագործվում map()-ը React-ում։',
     options: [
-      'Կոդի բոլոր սխալները կանխելու համար',
-      'try բլոկում առաջացած սխալները բռնելու և մշակելու համար',
-      'Միայն Promise-ները ստեղծելու համար',
-      'Սերվերի պատասխանը պարտադիր 500 դարձնելու համար'
-    ],
-    answer: 1,
-    explanation: 'try/catch-ը թույլ է տալիս բռնել try բլոկում առաջացած սխալները և մշակել դրանք catch-ում։'
-  },
-  {
-    topic: 'Node.js',
-    question: 'Ի՞նչ է անում nodemon-ը։',
-    options: [
-      'Ամեն անգամ համակարգիչը միացնելիս տեղադրում է Node.js-ը',
-      'Ֆայլերի փոփոխությունից հետո վերագործարկում է Node սերվերը',
-      'Փոխարինում է Node.js-ի բոլոր մոդուլները',
-      'Միայն ստուգում է JavaScript կոդի սխալները՝ առանց սերվերը գործարկելու'
-    ],
-    answer: 1,
-    explanation: 'nodemon-ը հետևում է ֆայլերի փոփոխություններին և անհրաժեշտության դեպքում վերագործարկում է սերվերը։'
-  },
-  {
-    topic: 'HTTP',
-    question: 'Ի՞նչ է localhost-ը։',
-    options: [
-      'Ընթացիկ համակարգիչը, որի վրա աշխատում է տեղական սերվերը',
-      'Ցանկացած հեռավոր սերվերի դոմենային անունը',
-      'Սերվերի պարտադիր պորտի համարը',
-      'Node.js-ի մոդուլ, որը ստեղծում է HTTP հարցումներ'
+      'Զանգվածի տարրերից JSX տարրեր ստանալու համար',
+      'Բոլոր տարրերը ջնջելու համար',
+      'Սերվերին հարցում ուղարկելու համար',
+      'CSS ֆայլերը միացնելու համար'
     ],
     answer: 0,
-    explanation: 'localhost-ը ցույց է տալիս ընթացիկ սարքը։'
+    explanation: 'map()-ը հաճախ օգտագործվում է զանգվածի տարրերը ցուցակով ցուցադրելու համար։'
   },
   {
-    topic: 'Node.js',
-    question: 'Ի՞նչ է անում JSON.stringify()-ը։',
+    topic: 'React',
+    question: 'Ինչի՞ համար է պետք key-ը ցուցակի տարրերի դեպքում։',
     options: [
-      'JSON տողը վերածում է JavaScript օբյեկտի',
-      'JavaScript արժեքը վերածում է JSON տողի',
-      'JavaScript օբյեկտը վերածում է զանգվածի',
-      'JSON տվյալները ուղարկում է սերվերին՝ առանց հարցում ստեղծելու'
+      'Տարրերի միջև տարբերությունը React-ին ցույց տալու համար',
+      'Կոճակները գունավորելու համար',
+      'Սերվերի գաղտնաբառը պահելու համար',
+      'Էջը ավտոմատ թարմացնելու համար'
     ],
-    answer: 1,
-    explanation: 'JSON.stringify()-ը JavaScript արժեքը սերիալացնում է JSON տողի։'
+    answer: 0,
+    explanation: 'key-ը React-ին օգնում է հասկանալ, թե ցուցակի որ տարրն է փոխվել։'
+  },
+  {
+    topic: 'React',
+    question: 'Ի՞նչ է անում useEffect()-ը։',
+    options: [
+      'Կառավարում է կողմնակի գործողությունները կոմպոնենտում',
+      'Փոխարինում է բոլոր CSS կանոնները',
+      'Ստեղծում է Express սերվեր',
+      'Միայն հաշվարկում է զանգվածի երկարությունը'
+    ],
+    answer: 0,
+    explanation: 'useEffect()-ը կիրառվում է կողմնակի գործողությունների համար, օրինակ՝ API հարցումների։'
   }
 ];
-// Trigger Vercel deployment
+
+export default function App() {
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [answers, setAnswers] = useState([]);
+  const [finished, setFinished] = useState(false);
+
+  const question = questions[currentQuestion];
+
+  const handleAnswer = (index) => {
+    if (selectedAnswer !== null) return;
+
+    setSelectedAnswer(index);
+    setAnswers((previousAnswers) => [
+      ...previousAnswers,
+      {
+        questionIndex: currentQuestion,
+        selected: index,
+        correct: index === question.answer
+      }
+    ]);
+  };
+
+  const nextQuestion = () => {
+    if (currentQuestion < questions.length - 1) {
+      setCurrentQuestion((previous) => previous + 1);
+      setSelectedAnswer(null);
+    } else {
+      setFinished(true);
+    }
+  };
+
+  const restartQuiz = () => {
+    setCurrentQuestion(0);
+    setSelectedAnswer(null);
+    setAnswers([]);
+    setFinished(false);
+  };
+
+  const correctAnswers = answers.filter((item) => item.correct).length;
+  const wrongAnswers = answers.length - correctAnswers;
+  const progress = finished
+    ? 100
+    : ((currentQuestion + 1) / questions.length) * 100;
+
+  if (finished) {
+    return (
+      <main className="app">
+        <div className="quiz-card result-card">
+          <h1>Թեստն ավարտված է 🎉</h1>
+
+          <h2>
+            Արդյունք՝ {correctAnswers} / {questions.length}
+          </h2>
+
+          <p>Ճիշտ պատասխաններ՝ {correctAnswers}</p>
+          <p>Սխալ պատասխաններ՝ {wrongAnswers}</p>
+
+          <div className="progress-bar">
+            <div
+              className="progress-fill"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+
+          <button className="next-button" onClick={restartQuiz}>
+            Կրկին սկսել
+          </button>
+        </div>
+      </main>
+    );
+  }
+
+  return (
+    <main className="app">
+      <div className="quiz-card">
+        <div className="quiz-header">
+          <span className="topic">
+            {question.topic || 'npm'}
+          </span>
+
+          <span className="question-count">
+            Հարց {currentQuestion + 1} / {questions.length}
+          </span>
+        </div>
+
+        <div className="progress-bar">
+          <div
+            className="progress-fill"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+
+        <h1>{question.question}</h1>
+
+        <div className="options">
+          {question.options.map((option, index) => {
+            const isCorrect = index === question.answer;
+            const isSelected = index === selectedAnswer;
+
+            let optionClass = 'option-button';
+
+            if (selectedAnswer !== null && isCorrect) {
+              optionClass += ' correct';
+            } else if (isSelected && !isCorrect) {
+              optionClass += ' incorrect';
+            }
+
+            return (
+              <button
+                key={option}
+                className={optionClass}
+                onClick={() => handleAnswer(index)}
+                disabled={selectedAnswer !== null}
+              >
+                <span className="option-letter">
+                  {String.fromCharCode(65 + index)}
+                </span>
+
+                <span>{option}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {selectedAnswer !== null && (
+          <div className="explanation">
+            <strong>
+              {selectedAnswer === question.answer
+                ? 'Ճիշտ պատասխան է։'
+                : 'Սխալ պատասխան է։'}
+            </strong>
+
+            <p>{question.explanation}</p>
+
+            <button className="next-button" onClick={nextQuestion}>
+              {currentQuestion === questions.length - 1
+                ? 'Տեսնել արդյունքը'
+                : 'Հաջորդ հարցը'}
+            </button>
+          </div>
+        )}
+      </div>
+    </main>
+  );
+}
