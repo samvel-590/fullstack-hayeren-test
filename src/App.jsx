@@ -350,3 +350,4 @@ const questions = [
     explanation: 'JSON.stringify()-ը JavaScript արժեքը սերիալացնում է JSON տողի։'
   }
 ];
+// Trigger Vercel deployment
