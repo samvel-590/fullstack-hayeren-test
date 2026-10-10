@@ -25,10 +25,10 @@ const questions = [
     topic: 'Async',
     question: 'Ինչի՞ համար է օգտագործվում async/await-ը։',
     options: [
-      'Ասինխրոն կոդը համաժամանակյա դարձնելու համար',
+      'Ասինխրոն գործողությունները միշտ զուգահեռ սկսելու համար',
       'Ասինխրոն գործողությունների հետ հարմար աշխատելու համար',
-      'Սերվերի պորտը փոխելու համար',
-      'Promise-ները զանգվածների վերածելու համար'
+      'Բոլոր Promise-ները ավտոմատ resolve անելու համար',
+      'Callback պարունակող ցանկացած ֆունկցիա Promise դարձնելու համար'
     ],
     answer: 1,
     explanation: 'async/await-ը հեշտացնում է Promise-ների հետ աշխատանքը և կոդը դարձնում ավելի ընթեռնելի։'
@@ -37,12 +37,12 @@ const questions = [
     topic: 'npm',
     question: 'Ի՞նչ տեղեկություն է պահվում package.json-ում։',
     options: [
-      'Նախագծի միայն ֆայլերի անունները',
+      'Տեղադրված փաթեթների ճշգրիտ dependency tree-ն',
+      'Միայն environment variable-ների արժեքները',
       'Նախագծի տվյալները, scripts-ը և կախվածությունները',
-      'Միայն տեղադրված փաթեթների կոդը',
-      'Միայն սերվերի կարգավորումները'
+      'Տեղադրված փաթեթների ամբողջ source code-ը'
     ],
-    answer: 1,
+    answer: 2,
     explanation: 'package.json-ը պահում է նախագծի նկարագրությունը, հրամանները և dependencies-ը։'
   },
   {
@@ -50,9 +50,9 @@ const questions = [
     question: 'Ինչպե՞ս գործարկել package.json-ի dev script-ը։',
     options: [
       'npm dev',
-      'node run dev',
+      'npm start dev',
       'npm run dev',
-      'node dev'
+      'npx run dev'
     ],
     answer: 2,
     explanation: 'Օգտագործում ենք npm run dev հրամանը։'
@@ -61,36 +61,36 @@ const questions = [
     topic: 'npm',
     question: 'Ո՞ր հրամանն է տեղադրում package.json-ում նշված մոդուլները։',
     options: [
-      'npm install',
-      'npm start',
-      'npm run dev',
-      'npm update'
+      'npm run install',
+      'npm update --only',
+      'npm start --install',
+      'npm install'
     ],
-    answer: 0,
+    answer: 3,
     explanation: 'npm install հրամանը տեղադրում է package.json-ում նշված մոդուլները։'
   },
   {
     topic: 'Express',
     question: 'Ի՞նչ է Express.js-ը։',
     options: [
-      'Node.js-ի ներկառուցված մոդուլ',
+      'JavaScript-ը browser-ից դուրս աշխատեցնող runtime',
+      'Տվյալների բազայի հետ աշխատող ORM',
       'Node.js-ի համար վեբ ֆրեյմվորք',
-      'JavaScript-ի փոխարինող լեզու',
-      'Տվյալների բազայի կառավարման համակարգ'
+      'Միայն HTTP հարցումներ ուղարկող client library'
     ],
-    answer: 1,
+    answer: 2,
     explanation: 'Express.js-ն օգնում է ստեղծել սերվերներ և API-ներ Node.js-ով։'
   },
   {
     topic: 'HTTP',
     question: 'Ի՞նչ է սովորաբար անում GET /books հարցումը։',
     options: [
-      'Ստանում է գրքերի ցանկը',
       'Ստեղծում է նոր գիրք',
       'Փոփոխում է գոյություն ունեցող գիրքը',
-      'Ջնջում է գրքերի ցանկը'
+      'Ջնջում է գրքերի ցանկը',
+      'Ստանում է գրքերի ցանկը'
     ],
-    answer: 0,
+    answer: 3,
     explanation: 'GET մեթոդը սովորաբար օգտագործվում է տվյալներ ստանալու համար։'
   },
   {
@@ -136,7 +136,7 @@ const questions = [
       'URL-ի query պարամետրերը',
       'Հարցման մարմնում ուղարկված տվյալները',
       'Երթուղու պարամետրերը',
-      'Սերվերի ուղարկած պատասխանը'
+      'Հարցման headers-ի ամբողջ հավաքածուն'
     ],
     answer: 1,
     explanation: 'req.body-ում կարող են լինել հաճախորդի ուղարկած տվյալները, եթե համապատասխան middleware-ը մշակել է դրանք։'
@@ -145,24 +145,24 @@ const questions = [
     topic: 'Express',
     question: 'Ինչի՞ համար է app.use(express.json())-ը։',
     options: [
-      'JSON ձևաչափով հարցման մարմինը վերլուծելու համար',
-      'JSON պատասխանը բրաուզերում ցուցադրելու համար',
-      'Նոր երթուղիներ գրանցելու համար',
-      'Սերվերի սխալները ավտոմատ ուղղելու համար'
+      'JavaScript object-ը JSON response դարձնելու համար',
+      'Request body-ի պարտադիր field-ները ստուգելու համար',
+      'Բոլոր հարցումների Content-Type-ը JSON դարձնելու համար',
+      'JSON ձևաչափով հարցման մարմինը վերլուծելու համար'
     ],
-    answer: 0,
+    answer: 3,
     explanation: 'express.json() middleware-ը վերլուծում է JSON ձևաչափով հարցման մարմինը։'
   },
   {
     topic: 'Response',
     question: 'Ի՞նչ է անում res.json(data)-ը։',
     options: [
-      'Ուղարկում է JSON պատասխան',
-      'Կարդում է JSON ֆայլը համակարգչից',
-      'Ստանում է տվյալները req.body-ից',
-      'Վերագործարկում է սերվերը'
+      'Վերլուծում է ստացված JSON request body-ն',
+      'Սահմանում է միայն response-ի status code-ը',
+      'Ուղարկում է data-ն որպես սովորական text՝ առանց JSON-ի',
+      'Ուղարկում է JSON պատասխան'
     ],
-    answer: 0,
+    answer: 3,
     explanation: 'res.json()-ը ուղարկում է պատասխանը JSON ձևաչափով։'
   },
   {
@@ -193,12 +193,12 @@ const questions = [
     topic: 'HTTP',
     question: 'Ե՞րբ է հաճախ օգտագործվում 400 կարգավիճակը։',
     options: [
-      'Երբ հաճախորդի հարցումը սխալ է',
       'Երբ սերվերում ներքին սխալ է տեղի ունեցել',
       'Երբ նոր ռեսուրս է ստեղծվել',
-      'Երբ պահանջված ռեսուրսը չի գտնվել'
+      'Երբ պահանջված ռեսուրսը չի գտնվել',
+      'Երբ հաճախորդի հարցումը սխալ է'
     ],
-    answer: 0,
+    answer: 3,
     explanation: '400 Bad Request-ը կիրառվում է, երբ հարցման տվյալները սխալ են կամ անվավեր։'
   },
   {
@@ -217,22 +217,22 @@ const questions = [
     topic: 'Middleware',
     question: 'Ի՞նչ է middleware-ը Express-ում։',
     options: [
-      'Ֆունկցիա, որն աշխատում է հարցման և պատասխանի ընթացքի մեջ',
-      'Ֆունկցիա, որը միայն ստեղծում է նոր երթուղիներ',
-      'Օբյեկտ, որը պահում է բոլոր հարցումների արդյունքները',
-      'Մեթոդ, որը միայն ուղարկում է JSON պատասխան'
+      'Միայն route-ի վերջնական պատասխանը վերադարձնող handler',
+      'Express application-ի բոլոր routes-ը պահող object',
+      'Client-ի և database-ի միջև ուղիղ կապ ստեղծող driver',
+      'Ֆունկցիա, որն աշխատում է հարցման և պատասխանի ընթացքի մեջ'
     ],
-    answer: 0,
+    answer: 3,
     explanation: 'Middleware-ը կարող է մշակել հարցումը, փոխել req-ը, ուղարկել պատասխան կամ կանչել next()։'
   },
   {
     topic: 'Middleware',
     question: 'Ի՞նչ է անում next()-ը middleware-ում։',
     options: [
-      'Ավարտում է հարցումը՝ առանց պատասխանի',
+      'Անցնում է հաջորդ URL route-ին՝ փոխելով req.path-ը',
       'Փոխանցում է կառավարումը հաջորդ փուլին',
-      'Ուղարկում է JSON պատասխան',
-      'Վերագործարկում է սերվերը'
+      'Ավարտում է response-ը և վերադարձնում 204 status',
+      'Նույն middleware-ը նորից է գործարկում'
     ],
     answer: 1,
     explanation: 'next()-ը փոխանցում է կառավարումը հաջորդ middleware-ին կամ համապատասխան մշակիչին։'
@@ -242,9 +242,9 @@ const questions = [
     question: 'Ինչո՞ւ է middleware-ների հերթականությունը կարևոր։',
     options: [
       'Որովհետև դրանք կատարվում են գրանցման հերթականությամբ',
-      'Որովհետև դրանք միշտ աշխատում են հակառակ հերթականությամբ',
-      'Որովհետև հերթականությունը որոշում է հարցման HTTP մեթոդը',
-      'Որովհետև middleware-ները կատարվում են պատահական հերթականությամբ'
+      'Որովհետև Express-ը նախ աշխատեցնում է միայն route middleware-ները',
+      'Որովհետև ամեն middleware փոխում է հարցման HTTP մեթոդը',
+      'Որովհետև async middleware-ները միշտ տեղափոխվում են վերջ'
     ],
     answer: 0,
     explanation: 'Express-ը middleware-ները գործարկում է գրանցման հերթականությամբ։'
@@ -253,24 +253,24 @@ const questions = [
     topic: 'API',
     question: 'Ի՞նչ է API endpoint-ը։',
     options: [
-      'Սերվերի կոնկրետ հասցե կամ երթուղի, որով հասանելի է գործողությունը կամ տվյալը',
-      'Հարցման մարմնում ուղարկվող տվյալների ձևաչափ',
-      'Ֆունկցիա, որը միայն ստուգում է սխալները',
-      'Պանակ, որտեղ պահվում են API-ի ֆայլերը'
+      'API-ի բոլոր routes-ի ընդհանուր base URL-ը',
+      'Request body-ի տվյալների կառուցվածքը նկարագրող schema-ն',
+      'Server-ը գործարկող հիմնական JavaScript ֆայլը',
+      'Սերվերի կոնկրետ հասցե կամ երթուղի, որով հասանելի է գործողությունը կամ տվյալը'
     ],
-    answer: 0,
+    answer: 3,
     explanation: 'Endpoint-ը API-ի կոնկրետ ուղին է, օրինակ՝ GET /books։'
   },
   {
     topic: 'API',
     question: 'Ի՞նչ է անում Array-ի find() մեթոդը։',
     options: [
-      'Վերադարձնում է առաջին համապատասխան տարրը',
       'Վերադարձնում է բոլոր համապատասխան տարրերի նոր զանգվածը',
       'Փոփոխում է զանգվածի բոլոր տարրերը',
-      'Ջնջում է պայմանին համապատասխանող տարրերը'
+      'Ջնջում է պայմանին համապատասխանող տարրերը',
+      'Վերադարձնում է առաջին համապատասխան տարրը'
     ],
-    answer: 0,
+    answer: 3,
     explanation: 'find()-ը վերադարձնում է առաջին տարրը, որը բավարարում է տրված պայմանին, կամ undefined։'
   },
   {
@@ -289,12 +289,12 @@ const questions = [
     topic: 'React',
     question: 'Ինչի՞ համար է օգտագործվում useState-ը։',
     options: [
-      'Կոմպոնենտում փոփոխվող վիճակ պահելու համար',
-      'React-ի կոմպոնենտները սերվերում գրանցելու համար',
-      'Ֆայլերի հետ աշխատելու համար',
-      'HTTP հարցումների երթուղիներ ստեղծելու համար'
+      'Կոմպոնենտի side effect-ները գործարկելու համար',
+      'Parent-ից ստացված props-ը մշտապես փոխելու համար',
+      'Կոմպոնենտը DOM-ում մեկ անգամ render անելու համար',
+      'Կոմպոնենտում փոփոխվող վիճակ պահելու համար'
     ],
-    answer: 0,
+    answer: 3,
     explanation: 'useState-ը React-ում պահում է state, իսկ setter ֆունկցիան թարմացնում է այն։'
   },
   {
@@ -302,9 +302,9 @@ const questions = [
     question: 'Ի՞նչ է անում React-ի map()-ը հաճախ ցուցակների դեպքում։',
     options: [
       'Յուրաքանչյուր տարրի համար ստեղծում է JSX տարր',
-      'Զանգվածից հեռացնում է ընտրված տարրերը',
-      'Փոխում է կոմպոնենտի state-ը',
-      'Ստուգում է՝ արդյոք բոլոր տարրերը նույնն են'
+      'Ցուցակից պահում է միայն պայմանին համապատասխանող տարրերը',
+      'Ավտոմատ փոխում է կոմպոնենտի state-ը յուրաքանչյուր տարրի համար',
+      'Գտնում է ցուցակի առաջին համապատասխան տարրը և դադարեցնում iteration-ը'
     ],
     answer: 0,
     explanation: 'map()-ով հաճախ զանգվածի տարրերը վերածում ենք JSX տարրերի ցուցակի։'
@@ -314,9 +314,9 @@ const questions = [
     question: 'Ինչի՞ համար է օգտագործվում try/catch-ը։',
     options: [
       'Սխալները բռնելու և մշակելու համար',
-      'Promise-ները զանգվածի վերածելու համար',
-      'Ֆունկցիաները ավտոմատ կրկնելու համար',
-      'Սերվերի երթուղիները գրանցելու համար'
+      'try բլոկի ցանկացած սխալը ավտոմատ ուղղելու համար',
+      'Ասինխրոն գործողությունը միշտ հաջող ավարտելու համար',
+      'Սխալի դեպքում function-ը սկզբից ավտոմատ կրկնելու համար'
     ],
     answer: 0,
     explanation: 'try/catch-ը թույլ է տալիս բռնել try բլոկում առաջացած սխալները և մշակել դրանք catch-ում։'
@@ -325,10 +325,10 @@ const questions = [
     topic: 'Error handling',
     question: 'Քանի՞ parameter պետք է ունենա Express-ի Error Handling Middleware-ը։',
     options: [
-      'Երկու՝ req և res',
-      'Երեք՝ req, res և next',
+      'Երկու՝ err և res',
+      'Երեք՝ err, req և res',
       'Չորս՝ err, req, res և next',
-      'Մեկ՝ միայն err'
+      'Չորս՝ req, res, next և statusCode'
     ],
     answer: 2,
     explanation: 'Express-ը Error Handling Middleware-ը ճանաչում է չորս parameter-ով՝ (err, req, res, next)։'
@@ -337,10 +337,10 @@ const questions = [
     topic: 'Error handling',
     question: 'Ի՞նչ է անում next(error)-ը Express-ում։',
     options: [
-      'Ուղարկում է հաջող response',
+      'Error-ը նետում է JavaScript-ի արտաքին try/catch-ին',
       'Error-ը փոխանցում է Express-ի error handling flow-ին',
-      'Վերագործարկում է server-ը',
-      'Փոխում է request-ի HTTP method-ը'
+      'Աշխատեցնում է հաջորդ սովորական middleware-ը՝ անտեսելով error-ը',
+      'Անմիջապես ուղարկում է 500 response՝ առանց Error Middleware-ի'
     ],
     answer: 1,
     explanation: 'next(error)-ը սովորական request flow-ի փոխարեն error-ը փոխանցում է հաջորդ Error Handling Middleware-ին։'
@@ -350,9 +350,9 @@ const questions = [
     question: 'Ինչո՞ւ է կարևոր գրել return՝ error response ուղարկելիս։',
     options: [
       'Որպեսզի function-ը ավարտվի և երկրորդ response չուղարկվի',
-      'Որպեսզի status code-ը միշտ դառնա 200',
-      'Որպեսզի request body-ն ավտոմատ parse արվի',
-      'Որպեսզի route-ը երկու անգամ աշխատի'
+      'Որպեսզի Express-ը response-ը JSON ձևաչափի փոխարկի',
+      'Որպեսզի status code-ը պահպանվի հաջորդ middleware-ի համար',
+      'Որպեսզի next(error)-ը կանչվի response-ից հետո'
     ],
     answer: 0,
     explanation: 'Early return-ը կանգնեցնում է handler-ի աշխատանքը և կանխում «Cannot set headers after they are sent» սխալը։'
@@ -380,10 +380,10 @@ const questions = [
     topic: 'Error handling',
     question: 'Ո՞րն է new Error() և throw new Error() տարբերությունը։',
     options: [
-      'Տարբերություն չկա',
-      'new Error()-ը response է ուղարկում, իսկ throw-ը՝ ոչ',
+      'new Error()-ը նետում է սխալը, իսկ throw-ը միայն ստեղծում է այն',
+      'new Error()-ը ստեղծում է 500 response, իսկ throw-ը՝ 400 response',
       'new Error()-ը միայն ստեղծում է Error object, իսկ throw-ը նետում է այն և կանգնեցնում սովորական execution-ը',
-      'throw-ը միայն Express-ում է աշխատում'
+      'new Error()-ը միայն synchronous code-ի, իսկ throw-ը միայն async code-ի համար է'
     ],
     answer: 2,
     explanation: 'new Error()-ը ստեղծում է object, իսկ throw new Error()-ը նետում է սխալը և ընթացիկ սովորական execution-ը դադարեցնում։'
@@ -393,9 +393,9 @@ const questions = [
     question: 'Ի՞նչ է անում nodemon-ը։',
     options: [
       'Ֆայլերի փոփոխությունից հետո վերագործարկում է Node սերվերը',
-      'Փոխարինում է JavaScript-ին',
-      'Ստեղծում է դիզայն',
-      'Ջնջում է package.json-ը'
+      'Յուրաքանչյուր փոփոխությունից հետո նորից տեղադրում է dependencies-ը',
+      'Ֆայլերի փոփոխությունից հետո production build է ստեղծում',
+      'Ֆայլերի փոփոխությունից հետո ավտոմատ աշխատեցնում է բոլոր tests-ը'
     ],
     answer: 0,
     explanation: 'nodemon-ը հետևում է ֆայլերի փոփոխություններին և անհրաժեշտության դեպքում վերագործարկում է սերվերը։'
@@ -405,9 +405,9 @@ const questions = [
     question: 'Ի՞նչ է localhost-ը։',
     options: [
       'Տեղական համակարգիչը կամ նույն սարքի սերվերը',
-      'Հեռավոր սերվերի պարտադիր հասցեն',
-      'HTTP հարցման հատուկ մեթոդ',
-      'Node.js-ի ներկառուցված մոդուլ'
+      'Նույն local network-ի բոլոր սարքերի ընդհանուր հասցեն',
+      'Internet-ում հրապարակված server-ի մշտական domain-ը',
+      'Միայն Node.js application-ների համար նախատեսված port-ը'
     ],
     answer: 0,
     explanation: 'localhost-ը ցույց է տալիս ընթացիկ սարքը։'
