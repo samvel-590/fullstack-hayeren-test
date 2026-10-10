@@ -414,7 +414,6 @@ export default function App() {
       <main className="app">
         <div className="quiz-card result-card">
           <h1>Թեստն ավարտված է 🎉</h1>
-
           <h2>
             Արդյունք՝ {correctAnswers} / {questions.length}
           </h2>
