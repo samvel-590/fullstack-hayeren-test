@@ -322,6 +322,73 @@ const questions = [
     explanation: 'try/catch-ը թույլ է տալիս բռնել try բլոկում առաջացած սխալները և մշակել դրանք catch-ում։'
   },
   {
+    topic: 'Error handling',
+    question: 'Քանի՞ parameter պետք է ունենա Express-ի Error Handling Middleware-ը։',
+    options: [
+      'Երկու՝ req և res',
+      'Երեք՝ req, res և next',
+      'Չորս՝ err, req, res և next',
+      'Մեկ՝ միայն err'
+    ],
+    answer: 2,
+    explanation: 'Express-ը Error Handling Middleware-ը ճանաչում է չորս parameter-ով՝ (err, req, res, next)։'
+  },
+  {
+    topic: 'Error handling',
+    question: 'Ի՞նչ է անում next(error)-ը Express-ում։',
+    options: [
+      'Ուղարկում է հաջող response',
+      'Error-ը փոխանցում է Express-ի error handling flow-ին',
+      'Վերագործարկում է server-ը',
+      'Փոխում է request-ի HTTP method-ը'
+    ],
+    answer: 1,
+    explanation: 'next(error)-ը սովորական request flow-ի փոխարեն error-ը փոխանցում է հաջորդ Error Handling Middleware-ին։'
+  },
+  {
+    topic: 'Error handling',
+    question: 'Ինչո՞ւ է կարևոր գրել return՝ error response ուղարկելիս։',
+    options: [
+      'Որպեսզի function-ը ավարտվի և երկրորդ response չուղարկվի',
+      'Որպեսզի status code-ը միշտ դառնա 200',
+      'Որպեսզի request body-ն ավտոմատ parse արվի',
+      'Որպեսզի route-ը երկու անգամ աշխատի'
+    ],
+    answer: 0,
+    explanation: 'Early return-ը կանգնեցնում է handler-ի աշխատանքը և կանխում «Cannot set headers after they are sent» սխալը։'
+  },
+  {
+    topic: 'Error handling',
+    question: 'Ի՞նչ status code կընտրվի err.statusCode || 500 արտահայտությամբ, եթե statusCode-ը սահմանված չէ։',
+    options: ['400', '404', '500', '201'],
+    answer: 2,
+    explanation: 'Եթե err.statusCode-ը չկա, || օպերատորը կօգտագործի fallback արժեքը՝ 500 Internal Server Error։'
+  },
+  {
+    topic: 'Error handling',
+    question: 'Ո՞ր հերթականությունն է ճիշտ Express application-ում։',
+    options: [
+      'Global Error Handler → Routes → express.json()',
+      'Routes → Global Error Handler → 404 fallback',
+      'express.json() → Routes → 404 fallback → Global Error Handler',
+      '404 fallback → express.json() → Routes'
+    ],
+    answer: 2,
+    explanation: 'Նախ աշխատում են ընդհանուր middleware-ներն ու routes-ը, հետո՝ չգտնված route-ի fallback-ը, իսկ վերջում՝ Global Error Handler-ը։'
+  },
+  {
+    topic: 'Error handling',
+    question: 'Ո՞րն է new Error() և throw new Error() տարբերությունը։',
+    options: [
+      'Տարբերություն չկա',
+      'new Error()-ը response է ուղարկում, իսկ throw-ը՝ ոչ',
+      'new Error()-ը միայն ստեղծում է Error object, իսկ throw-ը նետում է այն և կանգնեցնում սովորական execution-ը',
+      'throw-ը միայն Express-ում է աշխատում'
+    ],
+    answer: 2,
+    explanation: 'new Error()-ը ստեղծում է object, իսկ throw new Error()-ը նետում է սխալը և ընթացիկ սովորական execution-ը դադարեցնում։'
+  },
+  {
     topic: 'Node.js',
     question: 'Ի՞նչ է անում nodemon-ը։',
     options: [
@@ -387,6 +454,8 @@ export default function App() {
     0
   );
   const wrongOrMissing = questions.length - score;
+  const scorePercentage = (score / questions.length) * 100;
+  const estimatedMinutes = Math.ceil(questions.length / 3);
 
   function chooseAnswer(questionIndex, optionIndex) {
     if (submitted) return;
@@ -531,7 +600,7 @@ export default function App() {
             <span className="stat-icon">◷</span>
             <div>
               <strong>
-                ~10 <small>րոպե</small>
+                ~{estimatedMinutes} <small>րոպե</small>
               </strong>
               <span>ՄԻՋԻՆ ՏԵՎՈՂՈՒԹՅՈՒՆ</span>
             </div>
@@ -556,11 +625,11 @@ export default function App() {
             </div>
 
             <h2>
-              {score >= 25
+              {scorePercentage >= 83
                 ? 'Գերազանց արդյունք։ Շարունակի՛ր նույն կերպ։'
-                : score >= 20
+                : scorePercentage >= 67
                   ? 'Շատ լավ է։ Դու լավ ես յուրացրել նյութը։'
-                  : score >= 15
+                  : scorePercentage >= 50
                     ? 'Լավ սկիզբ է։ Կրկնիր բաց թողած թեմաները։'
                     : 'Մի՛ հանձնվիր։ Սովորիր սխալներից ու փորձիր նորից։'}
             </h2>
