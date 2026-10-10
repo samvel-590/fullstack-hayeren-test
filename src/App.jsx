@@ -1,10 +1,11 @@
-import { useState } from 'react';
+
+import { useMemo, useState } from 'react';
 
 const questions = [
   {
     topic: 'Node.js',
     question: 'Ո՞ր մոդուլն է օգտագործվում ֆայլերի հետ աշխատելու համար։',
-    options: ['path', 'fs', 'http', 'url'],
+    options: ['http', 'fs', 'express', 'path'],
     answer: 1,
     explanation: 'fs մոդուլը թույլ է տալիս կարդալ, գրել և փոփոխել ֆայլերը։'
   },
@@ -12,10 +13,10 @@ const questions = [
     topic: 'File System',
     question: 'Ի՞նչ է անում appendFile()-ը։',
     options: [
-      'Ֆայլի պարունակությունը փոխարինում է նոր տվյալներով',
-      'Ավելացնում է տվյալները ֆայլի վերջում',
       'Կարդում է ֆայլի պարունակությունը',
-      'Ստեղծում է նոր պանակ'
+      'Ավելացնում է տվյալները ֆայլի վերջում',
+      'Փոխարինում է ֆայլի ամբողջ պարունակությունը',
+      'Ջնջում է ֆայլը'
     ],
     answer: 1,
     explanation: 'appendFile()-ը նոր տվյալներ է ավելացնում ֆայլի վերջում։'
@@ -24,34 +25,34 @@ const questions = [
     topic: 'Async',
     question: 'Ինչի՞ համար է օգտագործվում async/await-ը։',
     options: [
-      'Ֆունկցիաները միայն հերթով գործարկելու համար',
-      'Promise-ների հետ ասինխրոն աշխատանքը հեշտացնելու համար',
-      'Սերվերի աշխատանքը դադարեցնելու համար',
-      'Սինխրոն ֆունկցիաները ավտոմատ async դարձնելու համար'
+      'Ասինխրոն կոդը համաժամանակյա դարձնելու համար',
+      'Ասինխրոն գործողությունների հետ հարմար աշխատելու համար',
+      'Սերվերի պորտը փոխելու համար',
+      'Promise-ները զանգվածների վերածելու համար'
     ],
     answer: 1,
-    explanation: 'async/await-ը հեշտացնում է Promise-ների հետ աշխատանքը։'
+    explanation: 'async/await-ը հեշտացնում է Promise-ների հետ աշխատանքը և կոդը դարձնում ավելի ընթեռնելի։'
   },
   {
     topic: 'npm',
     question: 'Ի՞նչ տեղեկություն է պահվում package.json-ում։',
     options: [
+      'Նախագծի միայն ֆայլերի անունները',
+      'Նախագծի տվյալները, scripts-ը և կախվածությունները',
       'Միայն տեղադրված փաթեթների կոդը',
-      'Նախագծի տվյալները, scripts-ը և dependencies-ը',
-      'Միայն սերվերի կարգավորումները',
-      'Նախագծի բոլոր ֆայլերի ամբողջական պարունակությունը'
+      'Միայն սերվերի կարգավորումները'
     ],
     answer: 1,
-    explanation: 'package.json-ը պահում է նախագծի տվյալները, հրամանները և dependencies-ը։'
+    explanation: 'package.json-ը պահում է նախագծի նկարագրությունը, հրամանները և dependencies-ը։'
   },
   {
     topic: 'npm',
     question: 'Ինչպե՞ս գործարկել package.json-ի dev script-ը։',
     options: [
       'npm dev',
-      'node dev',
+      'node run dev',
       'npm run dev',
-      'node run dev'
+      'node dev'
     ],
     answer: 2,
     explanation: 'Օգտագործում ենք npm run dev հրամանը։'
@@ -60,43 +61,48 @@ const questions = [
     topic: 'npm',
     question: 'Ո՞ր հրամանն է տեղադրում package.json-ում նշված մոդուլները։',
     options: [
-      'npm update',
       'npm install',
-      'npm uninstall',
-      'npm init'
+      'npm start',
+      'npm run dev',
+      'npm update'
     ],
-    answer: 1,
+    answer: 0,
     explanation: 'npm install հրամանը տեղադրում է package.json-ում նշված մոդուլները։'
   },
   {
     topic: 'Express',
     question: 'Ի՞նչ է Express.js-ը։',
     options: [
+      'Node.js-ի ներկառուցված մոդուլ',
       'Node.js-ի համար վեբ ֆրեյմվորք',
-      'JavaScript-ի առանձին ծրագրավորման լեզու',
-      'Տվյալների բազայի կառավարման համակարգ',
-      'Node.js-ի ներկառուցված fs մոդուլի այլ անուն'
+      'JavaScript-ի փոխարինող լեզու',
+      'Տվյալների բազայի կառավարման համակարգ'
     ],
-    answer: 0,
+    answer: 1,
     explanation: 'Express.js-ն օգնում է ստեղծել սերվերներ և API-ներ Node.js-ով։'
   },
   {
     topic: 'HTTP',
     question: 'Ի՞նչ է սովորաբար անում GET /books հարցումը։',
     options: [
-      'Ստեղծում է նոր գիրք',
       'Ստանում է գրքերի ցանկը',
-      'Փոփոխում է բոլոր գրքերը',
-      'Ջնջում է ընտրված գիրքը'
+      'Ստեղծում է նոր գիրք',
+      'Փոփոխում է գոյություն ունեցող գիրքը',
+      'Ջնջում է գրքերի ցանկը'
     ],
-    answer: 1,
+    answer: 0,
     explanation: 'GET մեթոդը սովորաբար օգտագործվում է տվյալներ ստանալու համար։'
   },
   {
     topic: 'HTTP',
     question: 'Ո՞ր մեթոդն է սովորաբար օգտագործվում նոր գիրք ավելացնելու համար։',
-    options: ['PUT', 'GET', 'POST', 'DELETE'],
-    answer: 2,
+    options: [
+      'GET',
+      'POST',
+      'PUT',
+      'DELETE'
+    ],
+    answer: 1,
     explanation: 'POST հարցումը հաճախ օգտագործվում է նոր տվյալ ստեղծելու համար։'
   },
   {
@@ -106,7 +112,7 @@ const questions = [
       'req.query.id',
       'req.body.id',
       'req.params.id',
-      'res.params.id'
+      'req.headers.id'
     ],
     answer: 2,
     explanation: 'Երթուղու պարամետրերը հասանելի են req.params օբյեկտում։'
@@ -115,34 +121,34 @@ const questions = [
     topic: 'Request',
     question: 'Որտե՞ղ են գտնվում URL-ի query պարամետրերը։',
     options: [
-      'req.params',
       'req.query',
+      'req.params',
       'req.body',
-      'res.query'
+      'req.headers'
     ],
-    answer: 1,
+    answer: 0,
     explanation: 'Օրինակ՝ /books?search=node հարցման search արժեքը կլինի req.query.search։'
   },
   {
     topic: 'Request',
     question: 'Ի՞նչ է սովորաբար պահվում req.body-ում POST հարցման դեպքում։',
     options: [
-      'Երթուղու պարամետրերը',
+      'URL-ի query պարամետրերը',
       'Հարցման մարմնում ուղարկված տվյալները',
-      'Սերվերի պատասխանի տվյալները',
-      'URL-ի query պարամետրերը'
+      'Երթուղու պարամետրերը',
+      'Սերվերի ուղարկած պատասխանը'
     ],
     answer: 1,
-    explanation: 'req.body-ում կարող են լինել հաճախորդի ուղարկած տվյալները։'
+    explanation: 'req.body-ում կարող են լինել հաճախորդի ուղարկած տվյալները, եթե համապատասխան middleware-ը մշակել է դրանք։'
   },
   {
     topic: 'Express',
     question: 'Ինչի՞ համար է app.use(express.json())-ը։',
     options: [
-      'JSON հարցման մարմինը վերլուծելու համար',
+      'JSON ձևաչափով հարցման մարմինը վերլուծելու համար',
       'JSON պատասխանը բրաուզերում ցուցադրելու համար',
-      'JSON ֆայլը ավտոմատ ստեղծելու համար',
-      'Հարցման բոլոր պարամետրերը ջնջելու համար'
+      'Նոր երթուղիներ գրանցելու համար',
+      'Սերվերի սխալները ավտոմատ ուղղելու համար'
     ],
     answer: 0,
     explanation: 'express.json() middleware-ը վերլուծում է JSON ձևաչափով հարցման մարմինը։'
@@ -151,70 +157,70 @@ const questions = [
     topic: 'Response',
     question: 'Ի՞նչ է անում res.json(data)-ը։',
     options: [
-      'Ընդունում է հաճախորդից եկած JSON տվյալները',
-      'Ուղարկում է JSON ձևաչափով պատասխան',
+      'Ուղարկում է JSON պատասխան',
       'Կարդում է JSON ֆայլը համակարգչից',
-      'Փոխակերպում է պատասխանը HTML-ի'
+      'Ստանում է տվյալները req.body-ից',
+      'Վերագործարկում է սերվերը'
     ],
-    answer: 1,
+    answer: 0,
     explanation: 'res.json()-ը ուղարկում է պատասխանը JSON ձևաչափով։'
   },
   {
     topic: 'HTTP',
     question: 'Ի՞նչ է նշանակում HTTP 201 կարգավիճակը։',
     options: [
-      'Հարցումը հաջողությամբ կատարվել է, և նոր ռեսուրս է ստեղծվել',
-      'Հարցումը ճիշտ է, բայց ռեսուրսը չի գտնվել',
-      'Հաճախորդի ուղարկած տվյալները անվավեր են',
-      'Սերվերում ներքին սխալ է առաջացել'
+      'Հարցումը հաջողությամբ կատարվել է, բայց նոր ռեսուրս չի ստեղծվել',
+      'Պահանջված ռեսուրսը չի գտնվել',
+      'Նոր ռեսուրսը հաջողությամբ ստեղծվել է',
+      'Սերվերում ներքին սխալ է տեղի ունեցել'
     ],
-    answer: 0,
+    answer: 2,
     explanation: '201 Created-ը ցույց է տալիս, որ նոր ռեսուրս է ստեղծվել։'
   },
   {
     topic: 'HTTP',
     question: 'Ի՞նչ է նշանակում 404 կարգավիճակը։',
     options: [
-      'Սերվերը չի կարող մշակել հարցումը ներքին սխալի պատճառով',
-      'Հարցումը հաջողությամբ ստեղծել է նոր ռեսուրս',
-      'Պահանջված ռեսուրսը չի գտնվել',
-      'Հաճախորդի հարցման տվյալները անվավեր են'
+      'Հարցումը հաջողությամբ կատարվել է',
+      'Ռեսուրսը չի գտնվել',
+      'Նոր ռեսուրս է ստեղծվել',
+      'Հարցման տվյալները անվավեր են'
     ],
-    answer: 2,
+    answer: 1,
     explanation: '404 Not Found նշանակում է, որ պահանջված ռեսուրսը չի գտնվել։'
   },
   {
     topic: 'HTTP',
     question: 'Ե՞րբ է հաճախ օգտագործվում 400 կարգավիճակը։',
     options: [
-      'Երբ սերվերում ներքին սխալ է տեղի ունենում',
-      'Երբ հաճախորդի հարցումը սխալ կամ անվավեր է',
-      'Երբ պահանջված ռեսուրսը չի գտնվել',
-      'Երբ նոր ռեսուրսը հաջողությամբ ստեղծվել է'
+      'Երբ հաճախորդի հարցումը սխալ է',
+      'Երբ սերվերում ներքին սխալ է տեղի ունեցել',
+      'Երբ նոր ռեսուրս է ստեղծվել',
+      'Երբ պահանջված ռեսուրսը չի գտնվել'
     ],
-    answer: 1,
+    answer: 0,
     explanation: '400 Bad Request-ը կիրառվում է, երբ հարցման տվյալները սխալ են կամ անվավեր։'
   },
   {
     topic: 'HTTP',
     question: 'Ի՞նչ է նշանակում 500 կարգավիճակը։',
     options: [
-      'Հաճախորդը սխալ տվյալներ է ուղարկել',
-      'Պահանջված ռեսուրսը չի գտնվել',
-      'Սերվերում ներքին սխալ է առաջացել',
-      'Նոր ռեսուրսը հաջողությամբ ստեղծվել է'
+      'Հարցման տվյալները անվավեր են',
+      'Ներքին սերվերային սխալ',
+      'Նոր ռեսուրս է ստեղծվել',
+      'Պահանջված ռեսուրսը չի գտնվել'
     ],
-    answer: 2,
+    answer: 1,
     explanation: '500 Internal Server Error-ը ցույց է տալիս սերվերի ներքին սխալ։'
   },
   {
     topic: 'Middleware',
     question: 'Ի՞նչ է middleware-ը Express-ում։',
     options: [
-      'Ֆունկցիա, որը կարող է մշակել հարցումը, ուղարկել պատասխան կամ փոխանցել կառավարումը',
-      'Ֆունկցիա, որը միայն HTML էջ է վերադարձնում',
-      'Օբյեկտ, որը պահում է բոլոր API տվյալները',
-      'Երթուղի, որը պարտադիր պետք է օգտագործի POST մեթոդը'
+      'Ֆունկցիա, որն աշխատում է հարցման և պատասխանի ընթացքի մեջ',
+      'Ֆունկցիա, որը միայն ստեղծում է նոր երթուղիներ',
+      'Օբյեկտ, որը պահում է բոլոր հարցումների արդյունքները',
+      'Մեթոդ, որը միայն ուղարկում է JSON պատասխան'
     ],
     answer: 0,
     explanation: 'Middleware-ը կարող է մշակել հարցումը, փոխել req-ը, ուղարկել պատասխան կամ կանչել next()։'
@@ -223,289 +229,549 @@ const questions = [
     topic: 'Middleware',
     question: 'Ի՞նչ է անում next()-ը middleware-ում։',
     options: [
-      'Ավարտում է պատասխանը՝ առանց հաջորդ փուլ անցնելու',
-      'Փոխանցում է կառավարումը հաջորդ middleware-ին կամ մշակիչին',
-      'Կրկին ուղարկում է հարցումը հաճախորդին',
-      'Ջնջում է req.body-ն'
+      'Ավարտում է հարցումը՝ առանց պատասխանի',
+      'Փոխանցում է կառավարումը հաջորդ փուլին',
+      'Ուղարկում է JSON պատասխան',
+      'Վերագործարկում է սերվերը'
     ],
     answer: 1,
-    explanation: 'next()-ը փոխանցում է կառավարումը հաջորդ middleware-ին կամ մշակիչին։'
+    explanation: 'next()-ը փոխանցում է կառավարումը հաջորդ middleware-ին կամ համապատասխան մշակիչին։'
   },
   {
-    topic: 'Express',
-    question: 'Ի՞նչ է route-ը Express-ում։',
+    topic: 'Middleware',
+    question: 'Ինչո՞ւ է middleware-ների հերթականությունը կարևոր։',
     options: [
-      'Միայն URL-ի հասցեն',
-      'HTTP մեթոդը, ուղին և հարցումը մշակող ֆունկցիան',
-      'Միայն middleware-ը',
-      'Տվյալների բազայի աղյուսակը'
-    ],
-    answer: 1,
-    explanation: 'Route-ը սահմանում է՝ ինչ անել կոնկրետ HTTP մեթոդի և ուղու դեպքում։'
-  },
-  {
-    topic: 'JavaScript',
-    question: 'Ի՞նչ է անում Array.filter()-ը։',
-    options: [
-      'Փոփոխում է բոլոր տարրերը',
-      'Վերադարձնում է պայմանին համապատասխանող տարրերի նոր զանգված',
-      'Միացնում է բոլոր տարրերը մեկ տողի մեջ',
-      'Ջնջում է սկզբնական զանգվածը'
-    ],
-    answer: 1,
-    explanation: 'filter()-ը վերադարձնում է նոր զանգված՝ միայն պայմանին համապատասխանող տարրերով։'
-  },
-  {
-    topic: 'JavaScript',
-    question: 'Ի՞նչ է անում toLowerCase()-ը։',
-    options: [
-      'Տեքստը դարձնում է մեծատառ',
-      'Տեքստը դարձնում է փոքրատառ',
-      'Հեռացնում է տեքստի բոլոր բացատները',
-      'Տեքստը դարձնում է թիվ'
-    ],
-    answer: 1,
-    explanation: 'toLowerCase()-ը տեքստի տառերը դարձնում է փոքրատառ։'
-  },
-  {
-    topic: 'JavaScript',
-    question: 'Ի՞նչ է անում includes()-ը։',
-    options: [
-      'Ստուգում է՝ արդյոք արժեքը պարունակվում է տողի կամ զանգվածի մեջ',
-      'Ջնջում է արժեքը',
-      'Փոխում է արժեքի տեսակը',
-      'Ավելացնում է նոր հատկություն օբյեկտին'
+      'Որովհետև դրանք կատարվում են գրանցման հերթականությամբ',
+      'Որովհետև դրանք միշտ աշխատում են հակառակ հերթականությամբ',
+      'Որովհետև հերթականությունը որոշում է հարցման HTTP մեթոդը',
+      'Որովհետև middleware-ները կատարվում են պատահական հերթականությամբ'
     ],
     answer: 0,
-    explanation: 'includes()-ը վերադարձնում է true կամ false՝ կախված նրանից, թե արժեքը կա, թե ոչ։'
+    explanation: 'Express-ը middleware-ները գործարկում է գրանցման հերթականությամբ։'
   },
   {
-    topic: 'JavaScript',
-    question: 'Ի՞նչ է վերադարձնում find()-ը։',
+    topic: 'API',
+    question: 'Ի՞նչ է API endpoint-ը։',
     options: [
-      'Միշտ նոր զանգված',
-      'Առաջին տարրը, որը համապատասխանում է պայմանին',
-      'Զանգվածի երկարությունը',
-      'Միայն true կամ false'
+      'Սերվերի կոնկրետ հասցե կամ երթուղի, որով հասանելի է գործողությունը կամ տվյալը',
+      'Հարցման մարմնում ուղարկվող տվյալների ձևաչափ',
+      'Ֆունկցիա, որը միայն ստուգում է սխալները',
+      'Պանակ, որտեղ պահվում են API-ի ֆայլերը'
     ],
-    answer: 1,
-    explanation: 'find()-ը վերադարձնում է առաջին համապատասխանող տարրը կամ undefined։'
+    answer: 0,
+    explanation: 'Endpoint-ը API-ի կոնկրետ ուղին է, օրինակ՝ GET /books։'
   },
   {
-    topic: 'JavaScript',
-    question: 'Ի՞նչ է անում Number("12")-ը։',
+    topic: 'API',
+    question: 'Ի՞նչ է անում Array-ի find() մեթոդը։',
     options: [
-      'Վերադարձնում է "12" տողը',
-      'Վերադարձնում է 12 թիվը',
-      'Վերադարձնում է null',
-      'Ստեղծում է զանգված'
+      'Վերադարձնում է առաջին համապատասխան տարրը',
+      'Վերադարձնում է բոլոր համապատասխան տարրերի նոր զանգվածը',
+      'Փոփոխում է զանգվածի բոլոր տարրերը',
+      'Ջնջում է պայմանին համապատասխանող տարրերը'
     ],
-    answer: 1,
-    explanation: 'Number()-ը փորձում է արժեքը փոխակերպել թվի։'
+    answer: 0,
+    explanation: 'find()-ը վերադարձնում է առաջին տարրը, որը բավարարում է տրված պայմանին, կամ undefined։'
+  },
+  {
+    topic: 'API',
+    question: 'Ի՞նչ է անում filter()-ը։',
+    options: [
+      'Վերադարձնում է պայմանին համապատասխանող տարրերի նոր զանգված',
+      'Վերադարձնում է միայն առաջին համապատասխան տարրը',
+      'Փոփոխում է զանգվածի բոլոր տարրերը',
+      'Դասավորում է զանգվածի տարրերն ըստ այբուբենի'
+    ],
+    answer: 0,
+    explanation: 'filter()-ը ստեղծում է նոր զանգված՝ ներառելով այն տարրերը, որոնք անցնում են ստուգումը։'
   },
   {
     topic: 'React',
     question: 'Ինչի՞ համար է օգտագործվում useState-ը։',
     options: [
-      'Կոմպոնենտի վիճակը պահելու և թարմացնելու համար',
-      'Միայն HTML տարրեր ստեղծելու համար',
-      'Սերվեր գործարկելու համար',
-      'CSS ֆայլեր ներմուծելու համար'
+      'Կոմպոնենտում փոփոխվող վիճակ պահելու համար',
+      'React-ի կոմպոնենտները սերվերում գրանցելու համար',
+      'Ֆայլերի հետ աշխատելու համար',
+      'HTTP հարցումների երթուղիներ ստեղծելու համար'
     ],
     answer: 0,
-    explanation: 'useState-ը թույլ է տալիս React կոմպոնենտում պահել վիճակ և թարմացնել այն։'
+    explanation: 'useState-ը React-ում պահում է state, իսկ setter ֆունկցիան թարմացնում է այն։'
   },
   {
     topic: 'React',
-    question: 'Ի՞նչ է անում onClick-ը։',
+    question: 'Ի՞նչ է անում React-ի map()-ը հաճախ ցուցակների դեպքում։',
     options: [
-      'Գործարկում է ֆունկցիա, երբ տարրի վրա սեղմում են',
-      'Փոխում է էջի URL-ը պարտադիր կերպով',
-      'Ստեղծում է նոր կոմպոնենտ',
-      'Միացնում է սերվերը'
+      'Յուրաքանչյուր տարրի համար ստեղծում է JSX տարր',
+      'Զանգվածից հեռացնում է ընտրված տարրերը',
+      'Փոխում է կոմպոնենտի state-ը',
+      'Ստուգում է՝ արդյոք բոլոր տարրերը նույնն են'
     ],
     answer: 0,
-    explanation: 'onClick-ը իրադարձության մշակիչ է, որը գործարկվում է սեղմելիս։'
+    explanation: 'map()-ով հաճախ զանգվածի տարրերը վերածում ենք JSX տարրերի ցուցակի։'
   },
   {
-    topic: 'React',
-    question: 'Ինչի՞ համար է օգտագործվում map()-ը React-ում։',
+    topic: 'Error handling',
+    question: 'Ինչի՞ համար է օգտագործվում try/catch-ը։',
     options: [
-      'Զանգվածի տարրերից JSX տարրեր ստանալու համար',
-      'Բոլոր տարրերը ջնջելու համար',
-      'Սերվերին հարցում ուղարկելու համար',
-      'CSS ֆայլերը միացնելու համար'
+      'Սխալները բռնելու և մշակելու համար',
+      'Promise-ները զանգվածի վերածելու համար',
+      'Ֆունկցիաները ավտոմատ կրկնելու համար',
+      'Սերվերի երթուղիները գրանցելու համար'
     ],
     answer: 0,
-    explanation: 'map()-ը հաճախ օգտագործվում է զանգվածի տարրերը ցուցակով ցուցադրելու համար։'
+    explanation: 'try/catch-ը թույլ է տալիս բռնել try բլոկում առաջացած սխալները և մշակել դրանք catch-ում։'
   },
   {
-    topic: 'React',
-    question: 'Ինչի՞ համար է պետք key-ը ցուցակի տարրերի դեպքում։',
+    topic: 'Node.js',
+    question: 'Ի՞նչ է անում nodemon-ը։',
     options: [
-      'Տարրերի միջև տարբերությունը React-ին ցույց տալու համար',
-      'Կոճակները գունավորելու համար',
-      'Սերվերի գաղտնաբառը պահելու համար',
-      'Էջը ավտոմատ թարմացնելու համար'
+      'Ֆայլերի փոփոխությունից հետո վերագործարկում է Node սերվերը',
+      'Փոխարինում է JavaScript-ին',
+      'Ստեղծում է դիզայն',
+      'Ջնջում է package.json-ը'
     ],
     answer: 0,
-    explanation: 'key-ը React-ին օգնում է հասկանալ, թե ցուցակի որ տարրն է փոխվել։'
+    explanation: 'nodemon-ը հետևում է ֆայլերի փոփոխություններին և անհրաժեշտության դեպքում վերագործարկում է սերվերը։'
   },
   {
-    topic: 'React',
-    question: 'Ի՞նչ է անում useEffect()-ը։',
+    topic: 'HTTP',
+    question: 'Ի՞նչ է localhost-ը։',
     options: [
-      'Կառավարում է կողմնակի գործողությունները կոմպոնենտում',
-      'Փոխարինում է բոլոր CSS կանոնները',
-      'Ստեղծում է Express սերվեր',
-      'Միայն հաշվարկում է զանգվածի երկարությունը'
+      'Տեղական համակարգիչը կամ նույն սարքի սերվերը',
+      'Հեռավոր սերվերի պարտադիր հասցեն',
+      'HTTP հարցման հատուկ մեթոդ',
+      'Node.js-ի ներկառուցված մոդուլ'
     ],
     answer: 0,
-    explanation: 'useEffect()-ը կիրառվում է կողմնակի գործողությունների համար, օրինակ՝ API հարցումների։'
+    explanation: 'localhost-ը ցույց է տալիս ընթացիկ սարքը։'
+  },
+  {
+    topic: 'Node.js',
+    question: 'Ի՞նչ է անում JSON.stringify()-ը։',
+    options: [
+      'JavaScript արժեքը վերածում է JSON տողի',
+      'JSON տողը վերածում է JavaScript օբյեկտի',
+      'Ստուգում է JSON տվյալների վավերությունը',
+      'Ուղարկում է JSON պատասխան սերվերից'
+    ],
+    answer: 0,
+    explanation: 'JSON.stringify()-ը JavaScript արժեքը սերիալացնում է JSON տողի։'
   }
 ];
 
+const letters = ['a', 'b', 'c', 'd'];
+const topics = ['Բոլոր թեմաները', ...new Set(questions.map((item) => item.topic))];
+
 export default function App() {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [answers, setAnswers] = useState([]);
-  const [finished, setFinished] = useState(false);
+  const [selectedTopic, setSelectedTopic] = useState('Բոլոր թեմաները');
+  const [answers, setAnswers] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+  const [showUnanswered, setShowUnanswered] = useState(false);
 
-  const question = questions[currentQuestion];
+  const visibleQuestions = useMemo(
+    () =>
+      questions
+        .map((question, index) => ({ ...question, originalIndex: index }))
+        .filter(
+          (question) =>
+            selectedTopic === 'Բոլոր թեմաները' ||
+            question.topic === selectedTopic
+        ),
+    [selectedTopic]
+  );
 
-  const handleAnswer = (index) => {
-    if (selectedAnswer !== null) return;
+  const answeredCount = Object.keys(answers).length;
+  const score = questions.reduce(
+    (sum, question, index) =>
+      sum + (answers[index] === question.answer ? 1 : 0),
+    0
+  );
+  const wrongOrMissing = questions.length - score;
 
-    setSelectedAnswer(index);
-    setAnswers((previousAnswers) => [
-      ...previousAnswers,
-      {
-        questionIndex: currentQuestion,
-        selected: index,
-        correct: index === question.answer
-      }
-    ]);
-  };
+  function chooseAnswer(questionIndex, optionIndex) {
+    if (submitted) return;
 
-  const nextQuestion = () => {
-    if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion((previous) => previous + 1);
-      setSelectedAnswer(null);
-    } else {
-      setFinished(true);
+    setAnswers((current) => ({
+      ...current,
+      [questionIndex]: optionIndex
+    }));
+    setShowUnanswered(false);
+  }
+
+  function submitQuiz() {
+    if (answeredCount < questions.length) {
+      setShowUnanswered(true);
+      return;
     }
-  };
 
-  const restartQuiz = () => {
-    setCurrentQuestion(0);
-    setSelectedAnswer(null);
-    setAnswers([]);
-    setFinished(false);
-  };
+    setSubmitted(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
-  const correctAnswers = answers.filter((item) => item.correct).length;
-  const wrongAnswers = answers.length - correctAnswers;
-  const progress = finished
-    ? 100
-    : ((currentQuestion + 1) / questions.length) * 100;
+  function restartQuiz() {
+    setAnswers({});
+    setSubmitted(false);
+    setShowUnanswered(false);
+    setSelectedTopic('Բոլոր թեմաները');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
-  if (finished) {
-    return (
-      <main className="app">
-        <div className="quiz-card result-card">
-          <h1>Թեստն ավարտված է 🎉</h1>
-          <h2>
-            Արդյունք՝ {correctAnswers} / {questions.length}
-          </h2>
+  function copyAnswers() {
+    const text = questions
+      .map((question, index) => `${index + 1}${letters[answers[index] ?? 0]}`)
+      .join(' ');
 
-          <p>Ճիշտ պատասխաններ՝ {correctAnswers}</p>
-          <p>Սխալ պատասխաններ՝ {wrongAnswers}</p>
-
-          <div className="progress-bar">
-            <div
-              className="progress-fill"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
-
-          <button className="next-button" onClick={restartQuiz}>
-            Կրկին սկսել
-          </button>
-        </div>
-      </main>
-    );
+    navigator.clipboard?.writeText(text);
   }
 
   return (
-    <main className="app">
-      <div className="quiz-card">
-        <div className="quiz-header">
-          <span className="topic">
-            {question.topic || 'npm'}
+    <div className="site-shell">
+      <header className="topbar">
+        <a className="brand" href="#top" aria-label="CodeQuest գլխավոր էջ">
+          <span className="brand-mark">{'</>'}</span>
+          <span>
+            CODE<span className="brand-light">QUEST</span>
           </span>
+        </a>
 
-          <span className="question-count">
-            Հարց {currentQuestion + 1} / {questions.length}
-          </span>
+        <div className="topbar-right">
+          <span className="live-dot" /> ԾՐԱԳՐԱՎՈՐՄԱՆ ԳԻՏԵԼԻՔՆԵՐ
         </div>
+      </header>
 
-        <div className="progress-bar">
-          <div
-            className="progress-fill"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
+      <main id="top" className="main-content">
+        <section className="hero">
+          <div className="hero-copy">
+            <div className="eyebrow">
+              <span className="eyebrow-line" /> ՔՈ ՈՒՍՈՒՑՄԱՆ ՀԵՏԱԳԻԾԸ
+            </div>
 
-        <h1>{question.question}</h1>
+            <h1>
+              Ստուգի՛ր գիտելիքներդ։
+              <br />
+              <span>Աճի՛ր ամեն օր։</span>
+            </h1>
 
-        <div className="options">
-          {question.options.map((option, index) => {
-            const isCorrect = index === question.answer;
-            const isSelected = index === selectedAnswer;
+            <p className="hero-description">
+              Քո անցած Full-Stack դասերի թեստը։ Պատասխանիր հարցերին, ստուգիր
+              արդյունքդ և պարզիր՝ որ թեմաներն են դեռ կրկնելու կարիք ունենում։
+            </p>
 
-            let optionClass = 'option-button';
-
-            if (selectedAnswer !== null && isCorrect) {
-              optionClass += ' correct';
-            } else if (isSelected && !isCorrect) {
-              optionClass += ' incorrect';
-            }
-
-            return (
-              <button
-                key={option}
-                className={optionClass}
-                onClick={() => handleAnswer(index)}
-                disabled={selectedAnswer !== null}
-              >
-                <span className="option-letter">
-                  {String.fromCharCode(65 + index)}
-                </span>
-
-                <span>{option}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {selectedAnswer !== null && (
-          <div className="explanation">
-            <strong>
-              {selectedAnswer === question.answer
-                ? 'Ճիշտ պատասխան է։'
-                : 'Սխալ պատասխան է։'}
-            </strong>
-
-            <p>{question.explanation}</p>
-
-            <button className="next-button" onClick={nextQuestion}>
-              {currentQuestion === questions.length - 1
-                ? 'Տեսնել արդյունքը'
-                : 'Հաջորդ հարցը'}
-            </button>
+            <div className="hero-tags">
+              <span>NODE.JS</span>
+              <span>EXPRESS</span>
+              <span>HTTP & API</span>
+              <span>JAVASCRIPT</span>
+            </div>
           </div>
+
+          <div className="hero-visual" aria-hidden="true">
+            <div className="visual-orbit orbit-one" />
+            <div className="visual-orbit orbit-two" />
+
+            <div className="code-window">
+              <div className="window-dots">
+                <i />
+                <i />
+                <i />
+                <span>knowledge.js</span>
+              </div>
+
+              <div className="code-lines">
+                <p>
+                  <b>01</b> <span className="code-purple">const</span>{' '}
+                  <span className="code-green">knowledge</span> = {'{'}
+                </p>
+                <p>
+                  <b>02</b> &nbsp;practice:{' '}
+                  <span className="code-orange">true</span>,
+                </p>
+                <p>
+                  <b>03</b> &nbsp;progress:{' '}
+                  <span className="code-orange">'daily'</span>,
+                </p>
+                <p>
+                  <b>04</b> &nbsp;future:{' '}
+                  <span className="code-green">'full-stack'</span>
+                </p>
+                <p>
+                  <b>05</b> {'}'}
+                </p>
+                <p>
+                  <b>06</b> <span className="code-purple">return</span>{' '}
+                  <span className="code-green">success</span>;
+                </p>
+              </div>
+
+              <div className="visual-badge">
+                <span>✦</span> ՍՈՎՈՐԻ՛Ր ԳՈՐԾՆԱԿԱՆՈՐԵՆ
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="stats-row" aria-label="Թեստի տվյալներ">
+          <div className="stat-card">
+            <span className="stat-icon">◎</span>
+            <div>
+              <strong>{questions.length}</strong>
+              <span>ՀԱՐՑ</span>
+            </div>
+          </div>
+
+          <div className="stat-card">
+            <span className="stat-icon">▦</span>
+            <div>
+              <strong>{topics.length - 1}</strong>
+              <span>ԹԵՄԱ</span>
+            </div>
+          </div>
+
+          <div className="stat-card">
+            <span className="stat-icon">◷</span>
+            <div>
+              <strong>
+                ~10 <small>րոպե</small>
+              </strong>
+              <span>ՄԻՋԻՆ ՏԵՎՈՂՈՒԹՅՈՒՆ</span>
+            </div>
+          </div>
+
+          <div className="stat-card">
+            <span className="stat-icon">✧</span>
+            <div>
+              <strong>100%</strong>
+              <span>ԱՆՎՃԱՐ ՓՈՐՁ</span>
+            </div>
+          </div>
+        </section>
+
+        {submitted ? (
+          <section className="results-panel">
+            <div className="section-kicker">ԹԵՍՏՆ ԱՎԱՐՏՎԱԾ Է</div>
+
+            <div className="result-score">
+              {score}
+              <span> / {questions.length}</span>
+            </div>
+
+            <h2>
+              {score >= 25
+                ? 'Գերազանց արդյունք։ Շարունակի՛ր նույն կերպ։'
+                : score >= 20
+                  ? 'Շատ լավ է։ Դու լավ ես յուրացրել նյութը։'
+                  : score >= 15
+                    ? 'Լավ սկիզբ է։ Կրկնիր բաց թողած թեմաները։'
+                    : 'Մի՛ հանձնվիր։ Սովորիր սխալներից ու փորձիր նորից։'}
+            </h2>
+
+            <p className="result-summary">
+              Ճիշտ պատասխաններ՝ <strong>{score}</strong> · Սխալ կամ բաց
+              թողնված՝ <strong>{wrongOrMissing}</strong>
+            </p>
+
+            <div className="result-meter">
+              <div
+                style={{
+                  width: `${(score / questions.length) * 100}%`
+                }}
+              />
+            </div>
+
+            <div className="result-actions">
+              <button className="primary-button" onClick={restartQuiz}>
+                ↻ Կրկին անցնել թեստը
+              </button>
+              <button className="secondary-button" onClick={copyAnswers}>
+                Պատճենել պատասխանների ձևաչափը
+              </button>
+            </div>
+
+            <div className="review-heading">
+              <h3>Պատասխանների բացատրություն</h3>
+              <span>ՍԽԱԼՆԵՐԻ ՎԵՐԱՆԱՅՈՒՄ</span>
+            </div>
+
+            <div className="review-list">
+              {questions.map((question, index) => {
+                const correct = answers[index] === question.answer;
+
+                return (
+                  <article
+                    className={`review-card ${correct ? 'review-correct' : 'review-wrong'
+                      }`}
+                    key={index}
+                  >
+                    <div className="review-status">
+                      {correct ? '✓ ՃԻՇՏ' : '× ՍԽԱԼ'}
+                    </div>
+
+                    <h4>
+                      {index + 1}. {question.question}
+                    </h4>
+
+                    {!correct && (
+                      <p className="your-answer">
+                        Քո պատասխանը՝ {question.options[answers[index]]}
+                      </p>
+                    )}
+
+                    <p className="right-answer">
+                      Ճիշտ պատասխան՝{' '}
+                      <strong>
+                        {letters[question.answer]}.{' '}
+                        {question.options[question.answer]}
+                      </strong>
+                    </p>
+
+                    <p className="explanation">{question.explanation}</p>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        ) : (
+          <section className="quiz-section" id="quiz">
+            <div className="quiz-heading">
+              <div>
+                <div className="section-kicker">ԳԻՏԵԼԻՔՆԵՐԻ ՍՏՈՒԳՈՒՄ</div>
+                <h2>Անցի՛ր թեստը</h2>
+                <p>Ընտրիր մեկ ճիշտ պատասխան յուրաքանչյուր հարցի համար։</p>
+              </div>
+
+              <div className="completion">
+                <div className="completion-number">
+                  {answeredCount}
+                  <span>/{questions.length}</span>
+                </div>
+                <div className="completion-label">ՊԱՏԱՍԽԱՆՎԱԾ</div>
+              </div>
+            </div>
+
+            <div className="progress-track">
+              <div
+                style={{
+                  width: `${(answeredCount / questions.length) * 100}%`
+                }}
+              />
+            </div>
+
+            <div className="filter-row">
+              <label htmlFor="topic-filter">ԹԵՄԱՅՈՎ ՖԻԼՏՐ</label>
+
+              <select
+                id="topic-filter"
+                value={selectedTopic}
+                onChange={(event) => setSelectedTopic(event.target.value)}
+              >
+                {topics.map((topic) => (
+                  <option key={topic}>{topic}</option>
+                ))}
+              </select>
+
+              <span className="filter-count">
+                ՑՈՒՑԱԴՐՎՈՒՄ Է {visibleQuestions.length} ՀԱՐՑ
+              </span>
+            </div>
+
+            <div className="questions-list">
+              {visibleQuestions.map((question) => {
+                const index = question.originalIndex;
+
+                return (
+                  <article className="question-card" key={index}>
+                    <div className="question-topline">
+                      <span className="question-number">
+                        ՀԱՐՑ {String(index + 1).padStart(2, '0')}
+                      </span>
+                      <span className="question-topic">{question.topic}</span>
+                    </div>
+
+                    <h3>{question.question}</h3>
+
+                    <div className="answer-grid">
+                      {question.options.map((option, optionIndex) => {
+                        const chosen = answers[index] === optionIndex;
+
+                        return (
+                          <button
+                            type="button"
+                            key={option}
+                            className={`answer-option ${chosen ? 'answer-selected' : ''
+                              }`}
+                            onClick={() =>
+                              chooseAnswer(index, optionIndex)
+                            }
+                            aria-pressed={chosen}
+                          >
+                            <span className="answer-letter">
+                              {letters[optionIndex]}
+                            </span>
+                            <span>{option}</span>
+                            <span className="answer-check">
+                              {chosen ? '✓' : ''}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+
+            {showUnanswered && (
+              <p className="warning-message">
+                Դեռ պատասխանված չեն բոլոր հարցերը։ Պատասխանիր մնացած{' '}
+                {questions.length - answeredCount} հարցին՝ արդյունքը ստանալու
+                համար։
+              </p>
+            )}
+
+            <div className="submit-area">
+              <div>
+                <strong>
+                  {answeredCount === questions.length
+                    ? 'Պատրաստ ես ստուգել արդյունքդ։'
+                    : `Մնացել է ${questions.length - answeredCount} հարց։`}
+                </strong>
+                <p>Արդյունքը կտեսնես թեստն ավարտելուց հետո։</p>
+              </div>
+
+              <button className="primary-button" onClick={submitQuiz}>
+                Ստուգել պատասխանները <span>→</span>
+              </button>
+            </div>
+          </section>
         )}
-      </div>
-    </main>
+
+        <section className="format-tip">
+          <div className="tip-icon">⌘</div>
+          <div>
+            <h3>Ինչպե՞ս նշել պատասխանները</h3>
+            <p>
+              Յուրաքանչյուր հարցի համար ընտրիր <strong>a, b, c կամ d</strong>{' '}
+              տարբերակներից մեկը։ Օրինակ՝ <code>1c 2a 3d</code>։ Կայքը կհաշվի
+              արդյունքդ ինքնուրույն։
+            </p>
+          </div>
+        </section>
+      </main>
+
+      <footer className="footer">
+        <a className="brand" href="#top">
+          <span className="brand-mark">{'</>'}</span>
+          <span>
+            CODE<span className="brand-light">QUEST</span>
+          </span>
+        </a>
+
+        <p>ՍՏԵՂԾՎԱԾ Է ՍՈՎՈՐԵԼՈՒ ԵՎ ԱՌԱՋԱԴԻՄԵԼՈՒ ՀԱՄԱՐ</p>
+
+        <a href="#top" className="back-top">
+          ՎԵՐԵՎ ↑
+        </a>
+      </footer>
+    </div>
   );
 }
